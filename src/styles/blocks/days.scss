@@ -1,15 +1,24 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+
+
 .calendar {
   display: flex;
   flex-wrap: wrap;
-  gap: 1px;
-  padding: 10px;
-  width: calc((100px * 7) + (6 * 1px) + (20px));
-
-  &--body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  gap: $gap;
+  padding: $padding;
+  width: $width;
 
   &__day {
     width: $day-size;
@@ -18,15 +27,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
+    font-size: $font-size;
     font-family: $font-stack;
     border: 1px solid black;
     background-color: $color-primary;
     position: relative;
 
     &::before {
-      content: '';
+      display: flex;
       position: absolute;
+      font-size: $font-size;
+      font-family: $font-stack;
+      align-items: center;
+      justify-content: center;
     }
   }
 
@@ -46,15 +59,15 @@
   }
 
   @each $week in $days-in-weeks {
-    .start-day--#{week}:first-child {
-      margin-left: $week;
+    .calendar--start-day-#{$week} .calendar__day:first-child {
+      margin-left: $margin-left * $week;
     }
   }
 
   @each $length in $length-in-month {
-    &--month-length-#{$length} {
+    .calendar--month-length-#{$length} {
       @for $n from 1 through $length {
-        .calendar__day:nth-child((#{$n} + #{$length + 1})) {
+        .calendar__day:nth-child(n + #{$length + 1}) {
           display: none;
         }
       }
