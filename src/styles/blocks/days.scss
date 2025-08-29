@@ -11,8 +11,6 @@ html {
   box-sizing: border-box;
 }
 
-
-
 .calendar {
   display: flex;
   flex-wrap: wrap;
@@ -58,19 +56,15 @@ html {
     }
   }
 
-  @each $week in $days-in-weeks {
-    .calendar--start-day-#{$week} .calendar__day:first-child {
-      margin-left: $margin-left * $week;
+  @each $name-days, $n in $days-in-weeks {
+    .calendar--start-day-#{$name-days} .calendar__day:first-child {
+      margin-left: $n * ($day-size + $gap);
     }
   }
 
   @each $length in $length-in-month {
-    .calendar--month-length-#{$length} {
-      @for $n from 1 through $length {
-        .calendar__day:nth-child(n + #{$length + 1}) {
-          display: none;
-        }
-      }
+    .calendar--month-length-#{$length} .calendar__day:nth-child(#{$length + 1}) {
+      display: none;
     }
   }
 }
